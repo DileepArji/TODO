@@ -126,9 +126,7 @@
 
     <script>
         // Sample data
-        const tasks = [
-           
-        ];
+        let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
         const tasksContainer = document.getElementById('tasks-container');
         const addTaskInput = document.getElementById('add-task-input');
@@ -151,6 +149,9 @@
                 `;
                 tasksContainer.appendChild(taskDiv);
             });
+
+            // Save tasks to local storage
+            localStorage.setItem('tasks', JSON.stringify(tasks));
         }
 
         // Add new task
