@@ -33,8 +33,32 @@
             box-shadow: 0 20px 30px rgba(0, 0, 0, 0.1);
         }
 
+        #counter-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #FFFFFF;
+            padding-bottom: 10px;
+            padding: 0px;
+            border-radius: 5px;
+            
+        }
+
+        #task-list-heading {
+            color: rgb(48, 47, 47) ;
+            margin: 9px;
+            padding-left:9px;
+        }
+
+        #task-counter {
+            font-size: 18px;
+            color: black;
+            margin:10px;
+            padding-right: 6px;
+        }
+
         #tasks-container {
-            margin-top: 10px;
+            margin-top: 0px;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
         }
 
@@ -116,6 +140,11 @@
             <h1>TODO</h1>
         </div>
 
+        <div id="counter-container">
+            <h3 id="task-list-heading">Tasklist</h3>
+            <div id="task-counter">0/0</div>
+        </div>
+
         <div id="tasks-container"></div>
 
         <div id="add-task-container">
@@ -139,6 +168,8 @@
         // Render tasks
         function renderTasks() {
             tasksContainer.innerHTML = '';
+            let completedTasks = 0;
+
             tasks.forEach((task, index) => {
                 const taskDiv = document.createElement('div');
                 taskDiv.classList.add('task');
@@ -148,7 +179,15 @@
                     <button class="delete-task-btn material-icons" onclick="deleteTask(${index})">delete</button>
                 `;
                 tasksContainer.appendChild(taskDiv);
+
+                if (task.completed) {
+                    completedTasks++;
+                }
             });
+
+            // Update task counter
+            const taskCounter = document.getElementById('task-counter');
+            taskCounter.textContent = `${completedTasks}/${tasks.length}`;
 
             // Save tasks to local storage
             localStorage.setItem('tasks', JSON.stringify(tasks));
